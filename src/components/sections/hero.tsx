@@ -5,6 +5,7 @@ import { ParticleTextEffect } from "@/components/ui/particle-text-effect";
 import { TypingSubtitle } from "@/components/ui/typing-subtitle";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+// Move arrays OUTSIDE component to prevent recreation on every render
 const slideshowImages = [
   "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/5fcea5e6-d6bb-4169-8c84-f1c10f122fc2/generated_images/stunning-panoramic-landscape-photograph--27491fd3-20251003032929.jpg",
   "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/project-uploads/5fcea5e6-d6bb-4169-8c84-f1c10f122fc2/generated_images/breathtaking-aerial-view-of-tropical-tur-d0064af0-20251003032937.jpg",
@@ -29,16 +30,17 @@ const slideshowImages = [
 ];
 
 const subtitles = [
-"Fun का ठिकाना, Stories का खजाना",
-"सस्ते में घूमो, दिल खोल के जियो",
-"Adventure की लहर, Memories का सफर",
-"Budget में Trip, Luxury का Feel",
-"यारों के संग, सफर हो रंग",
-"Dream Destinations, Pocket-Friendly Vacations",
-"Travel More, Spend Less, Live Best",
-"Travel More, Spend Less, Live Best",
-"हर मोड़ पर खुशी, हर रास्ते पे दोस्ती",
-"Wander Wildly, Travel Wisely, Save Money"];
+  "Fun का ठिकाना, Stories का खजाना",
+  "सस्ते में घूमो, दिल खोल के जियो",
+  "Adventure की लहर, Memories का सफर",
+  "Budget में Trip, Luxury का Feel",
+  "यारों के संग, सफर हो रंग",
+  "Dream Destinations, Pocket-Friendly Vacations",
+  "Travel More, Spend Less, Live Best",
+  "Travel More, Spend Less, Live Best",
+  "हर मोड़ पर खुशी, हर रास्ते पे दोस्ती",
+  "Wander Wildly, Travel Wisely, Save Money"
+];
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);

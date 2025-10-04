@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, memo } from "react"
+import { useEffect, useRef, memo, useMemo } from "react"
 
 interface Vector2D {
   x: number
@@ -140,6 +140,9 @@ const ParticleTextEffectComponent = ({ words = DEFAULT_WORDS, className }: Parti
   const particlesRef = useRef<Particle[]>([])
   const frameCountRef = useRef(0)
   const wordIndexRef = useRef(0)
+  
+  // Stabilize words array to prevent re-renders
+  const stableWords = useMemo(() => words, [JSON.stringify(words)])
 
   const pixelSteps = 4
   const drawAsPoints = true
@@ -286,8 +289,8 @@ const ParticleTextEffectComponent = ({ words = DEFAULT_WORDS, className }: Parti
 
     frameCountRef.current++
     if (frameCountRef.current % 240 === 0) {
-      wordIndexRef.current = (wordIndexRef.current + 1) % words.length
-      nextWord(words[wordIndexRef.current], canvas)
+      wordIndexRef.current = (wordIndexRef.current + 1) % stableWords.length
+      nextWord(stableWords[wordIndexRef.current], canvas)
     }
 
     animationRef.current = requestAnimationFrame(animate)
@@ -300,7 +303,12 @@ const ParticleTextEffectComponent = ({ words = DEFAULT_WORDS, className }: Parti
     canvas.width = 1000
     canvas.height = 500
 
-    nextWord(words[0], canvas)
+    // Reset to first word
+    wordIndexRef.current = 0
+    frameCountRef.current = 0
+    particlesRef.current = []
+    
+    nextWord(stableWords[0], canvas)
     animate()
 
     return () => {
@@ -308,7 +316,7 @@ const ParticleTextEffectComponent = ({ words = DEFAULT_WORDS, className }: Parti
         cancelAnimationFrame(animationRef.current)
       }
     }
-  }, [words])
+  }, [stableWords])
 
   return (
     <div className="flex flex-col items-center justify-center bg-transparent">
