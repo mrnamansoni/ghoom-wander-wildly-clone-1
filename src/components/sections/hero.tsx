@@ -192,7 +192,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.3, duration: 0.5 }}>
 
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary">4.5</p>
+              <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary md:!text-[#278c13]">4.5</p>
               <p className="text-xs sm:text-sm text-muted-foreground">Rating</p>
             </motion.div>
 
